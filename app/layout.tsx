@@ -26,8 +26,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-ink-950 text-white antialiased">
-        {/* Meta Pixel */}
-        <Script id="meta-pixel" strategy="afterInteractive">
+        {/* Meta Pixel — "lazyOnload" pra não competir por rede/CPU com o
+            carregamento da página em si (imagens da hero, fontes etc.),
+            que é o que mais pesa no LCP. O PageView dispara só um pouco
+            mais tarde, sem prejuízo pro tracking. */}
+        <Script id="meta-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

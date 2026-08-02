@@ -25,7 +25,8 @@ function CornerImage({ img, side }: { img: CarouselImage; side: "left" | "right"
         src={img.src}
         alt=""
         fill
-        unoptimized
+        quality={90}
+        sizes="120px"
         className="object-cover"
         draggable={false}
         onContextMenu={noContextMenu}

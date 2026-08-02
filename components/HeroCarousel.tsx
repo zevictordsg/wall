@@ -30,8 +30,10 @@ function MarqueeRow({
         {track.map((img, i) => (
           // Altura fixa, largura calculada pela proporção real da imagem
           // (via next/image + width/height): aparece inteira, sem cortar
-          // nada. "unoptimized" serve o arquivo original, sem recomprimir —
-          // e sem borda, só a imagem em si (como pedido).
+          // nada. Volta a passar pelo otimizador do Next (qualidade bem
+          // alta, quase sem perda visível) em vez de "unoptimized": assim
+          // ele entrega um arquivo do tamanho real exibido, não o arquivo
+          // original inteiro (que pode ter alguns MB) em toda tela.
           <div
             key={`${img.src}-${i}`}
             className={`relative ${heightClass} shrink-0 overflow-hidden rounded-2xl shadow-2xl transition-transform duration-300 hover:scale-[1.03]`}
@@ -41,7 +43,9 @@ function MarqueeRow({
               src={img.src}
               alt="Wallpaper AuraPapers"
               fill
-              unoptimized
+              quality={95}
+              sizes="(min-width: 1024px) 380px, (min-width: 768px) 300px, 220px"
+              priority={i < 3}
               className="object-contain"
               draggable={false}
               onContextMenu={noContextMenu}
