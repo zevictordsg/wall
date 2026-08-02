@@ -9,17 +9,22 @@ import { useEffect, useState } from "react";
  *    nas imagens — essa é a forma mais comum de chegar em "Inspecionar";
  *  - bloqueia os atalhos de teclado mais comuns (F12, Ctrl/Cmd+Shift+I/J/C,
  *    Ctrl/Cmd+U);
- *  - detecta o DevTools aberto por três sinais combinados: diferença de
- *    tamanho entre janela e viewport (funciona com painel ancorado),
- *    tempo de execução de um "debugger" (pausa quando o painel Sources
- *    está aberto, mesmo destacado em outra janela) e um truque de
- *    getter no console.log (dispara quando o painel Console está
- *    renderizando o valor). Quando qualquer um aciona, cobre a tela com
- *    um blur.
+ *  - no desktop, detecta o DevTools aberto (diferença de tamanho entre
+ *    janela e viewport + um truque de getter no console.log) e cobre a
+ *    tela com um blur.
+ *
+ * Em celular a detecção de DevTools fica DESLIGADA: abrir o DevTools de
+ * verdade num celular exige cabo USB + computador, então o risco é baixo
+ * — e as heurísticas de timing tendem a disparar "falso positivo" com
+ * qualquer engasgo normal do navegador (carregamento de imagem, animação,
+ * garbage collector), o que bloquearia gente de verdade sem motivo. Já
+ * aconteceu isso em produção, por isso a checagem de "debugger" (a mais
+ * sensível a esse tipo de engasgo) foi removida por completo.
  *
  * Importante: nenhuma proteção client-side é 100% infalível — um usuário
- * decidido sempre consegue contornar isso. Isso apenas eleva bastante o
- * esforço necessário e barra a grande maioria das tentativas casuais.
+ * decidido sempre consegue contornar isso. Isso apenas eleva o esforço
+ * necessário e barra a grande maioria das tentativas casuais, sem
+ * atrapalhar clientes de verdade.
  */
 export default function AntiInspect() {
   const [locked, setLocked] = useState(false);
@@ -44,6 +49,19 @@ export default function AntiInspect() {
       }
     }
 
+    document.addEventListener("contextmenu", blockContextMenu);
+    window.addEventListener("keydown", blockShortcuts, true);
+
+    // Celular/tablet (ponteiro "grosso", sem hover): pula a detecção de
+    // DevTools inteira, só fica o bloqueio de atalho/menu acima.
+    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (isTouchDevice) {
+      return () => {
+        document.removeEventListener("contextmenu", blockContextMenu);
+        window.removeEventListener("keydown", blockShortcuts, true);
+      };
+    }
+
     const GAP_THRESHOLD = 160;
     function sizeHeuristic() {
       const widthGap = window.outerWidth - window.innerWidth;
@@ -51,19 +69,9 @@ export default function AntiInspect() {
       return widthGap > GAP_THRESHOLD || heightGap > GAP_THRESHOLD;
     }
 
-    // Se o painel "Sources" do DevTools estiver aberto, um "debugger"
-    // pausa a execução até alguém retomar — o que faz esse trecho levar
-    // muito mais que o normal pra rodar. Com o DevTools fechado, é
-    // instantâneo.
-    function timingHeuristic() {
-      const start = performance.now();
-      // eslint-disable-next-line no-debugger
-      debugger;
-      return performance.now() - start > 100;
-    }
-
     // Getter só é acessado quando o painel "Console" está aberto e
-    // efetivamente renderizando o valor logado.
+    // efetivamente renderizando o valor logado (não depende de timing,
+    // então não sofre com engasgo do navegador).
     function consoleHeuristic(): Promise<boolean> {
       return new Promise((resolve) => {
         let triggered = false;
@@ -79,20 +87,19 @@ export default function AntiInspect() {
       });
     }
 
+    // Só tranca depois de dois sinais positivos seguidos, pra não reagir a
+    // um resize passageiro ou qualquer outra oscilação momentânea.
+    let strikes = 0;
     let cancelled = false;
     async function check() {
-      if (sizeHeuristic() || timingHeuristic()) {
-        if (!cancelled) setLocked(true);
-        return;
-      }
-      const consoleOpen = await consoleHeuristic();
-      if (!cancelled) setLocked(consoleOpen);
+      const suspicious = sizeHeuristic() || (await consoleHeuristic());
+      if (cancelled) return;
+      strikes = suspicious ? strikes + 1 : 0;
+      setLocked(strikes >= 2);
     }
 
-    document.addEventListener("contextmenu", blockContextMenu);
-    window.addEventListener("keydown", blockShortcuts, true);
     window.addEventListener("resize", check);
-    const interval = setInterval(check, 1200);
+    const interval = setInterval(check, 1500);
     check();
 
     return () => {
