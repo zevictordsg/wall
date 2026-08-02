@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #c81e2e;
+  color: #fff;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0808;
+}
+::-webkit-scrollbar-thumb {
+  background: #5c0d18;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a51526;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.italic-serif {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+@keyframes aura-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [style*="aura-marquee"] {
+    animation: none !important;
+  }
+}
+
+/* Dificulta o download casual das artes (clique direito, arrastar ou
+   "tocar e segurar" no celular). Nenhuma proteção client-side é 100%
+   infalível — mas isso já barra a grande maioria das tentativas simples. */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.watermark-tile {
+  background-image: repeating-linear-gradient(
+    -35deg,
+    rgba(255, 255, 255, 0.045) 0px,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 1px,
+    transparent 90px
+  );
+}
+
+/* Marca d'água repetida com o nome da marca, aplicada por cima das prévias
+   da galeria — dificulta reaproveitar o print/arquivo "cru". */
+.watermark-text {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='140'%3E%3Ctext x='0' y='70' font-family='Arial, sans-serif' font-size='20' font-weight='700' fill='white' fill-opacity='0.16' transform='rotate(-28 110 70)'%3EAURAPAPERS%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
