@@ -59,6 +59,7 @@ function WhatsAppCard({ t, thumb }: { t: (typeof testimonials)[number]; thumb?: 
               src={thumb.src}
               alt=""
               fill
+              quality={50}
               sizes="100px"
               className="object-cover"
               draggable={false}

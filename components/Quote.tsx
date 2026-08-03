@@ -32,7 +32,7 @@ export default function Quote({ image }: { image: CarouselImage }) {
             src={image.src}
             alt="Wallpaper AuraPapers em detalhe"
             fill
-            quality={72}
+            quality={62}
             sizes="(min-width: 768px) 700px, 90vw"
             className="object-cover"
             draggable={false}

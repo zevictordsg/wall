@@ -62,7 +62,7 @@ export default function BeforeAfter({
             src={afterImage}
             alt="Setup com wallpaper AuraPapers"
             fill
-            quality={70}
+            quality={55}
             sizes="(min-width: 1024px) 900px, 100vw"
             className="object-cover"
             draggable={false}

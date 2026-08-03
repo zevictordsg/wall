@@ -47,7 +47,7 @@ function MarqueeRow({
               src={img.src}
               alt="Wallpaper AuraPapers"
               fill
-              quality={68}
+              quality={52}
               sizes="(min-width: 1024px) 380px, (min-width: 768px) 300px, 220px"
               priority={i < priorityCount}
               className="object-contain"
