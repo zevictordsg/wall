@@ -26,7 +26,7 @@ function CornerImage({ img, side }: { img: CarouselImage; side: "left" | "right"
         src={img.src}
         alt=""
         fill
-        quality={90}
+        quality={60}
         sizes="120px"
         className="object-cover"
         draggable={false}

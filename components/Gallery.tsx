@@ -21,6 +21,7 @@ function Tile({
           src={item.src}
           alt={item.alt}
           fill
+          quality={65}
           sizes="(min-width: 768px) 33vw, 50vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           draggable={false}

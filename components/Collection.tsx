@@ -20,7 +20,8 @@ export default function Collection({ heroImage }: { heroImage: string }) {
             src={heroImage}
             alt="Visão geral da coleção AuraPapers"
             fill
-            sizes="1200px"
+            quality={68}
+            sizes="(min-width: 1024px) 1200px, 100vw"
             className="object-cover"
             draggable={false}
             onContextMenu={noContextMenu}

@@ -62,7 +62,8 @@ export default function BeforeAfter({
             src={afterImage}
             alt="Setup com wallpaper AuraPapers"
             fill
-            sizes="900px"
+            quality={70}
+            sizes="(min-width: 1024px) 900px, 100vw"
             className="object-cover"
             draggable={false}
             onContextMenu={noContextMenu}
@@ -80,7 +81,8 @@ export default function BeforeAfter({
               src={beforeImage}
               alt="Setup com wallpaper de fábrica"
               fill
-              sizes="900px"
+              quality={70}
+              sizes="(min-width: 1024px) 900px, 100vw"
               className="object-cover"
               draggable={false}
               onContextMenu={noContextMenu}

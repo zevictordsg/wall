@@ -32,6 +32,7 @@ export default function Pricing({
           src={spotlightImageMobile}
           alt=""
           fill
+          quality={60}
           sizes="100vw"
           className="object-cover md:hidden"
           draggable={false}
@@ -41,6 +42,7 @@ export default function Pricing({
           src={spotlightImageDesktop}
           alt=""
           fill
+          quality={60}
           sizes="100vw"
           className="hidden object-cover md:block"
           draggable={false}
