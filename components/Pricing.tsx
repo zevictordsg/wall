@@ -152,7 +152,7 @@ export default function Pricing({
                         <p className="mt-2 text-sm text-white/50">{plan.note}</p>
                       )}
                       <div className="mt-6">
-                        <PrimaryButton href="#" className="w-full">
+                        <PrimaryButton href={plan.checkoutUrl} target="_blank" className="w-full">
                           {plan.cta.toUpperCase()}
                         </PrimaryButton>
                       </div>
@@ -165,7 +165,7 @@ export default function Pricing({
 
                 {!plan.featured && (
                   <div className="mt-8">
-                    <OutlineButton href="#" className="w-full">
+                    <OutlineButton href={plan.checkoutUrl} target="_blank" className="w-full">
                       {plan.cta.toUpperCase()}
                     </OutlineButton>
                   </div>

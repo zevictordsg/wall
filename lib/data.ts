@@ -92,6 +92,8 @@ export type PricingPlan = {
   perks: string[];
   cta: string;
   note?: string;
+  /** link de checkout (Wiapy) desse plano específico */
+  checkoutUrl: string;
 };
 
 // Usado tanto no texto dos planos quanto no selo "+200" da tira de imagens.
@@ -109,6 +111,7 @@ export const pricingPlans: PricingPlan[] = [
       "Garantia de 7 dias",
     ],
     cta: "Quero só a Essencial",
+    checkoutUrl: "https://pay.wiapy.com/mdmeAy8wUzZs",
   },
   {
     id: "completa",
@@ -127,5 +130,9 @@ export const pricingPlans: PricingPlan[] = [
     ],
     cta: "Quero a Coleção Completa",
     note: "Menos de 10 centavos por wallpaper.",
+    checkoutUrl: "https://pay.wiapy.com/oHLpIxkg4cBD",
   },
 ];
+
+// CTA da hero, que já cita o preço da Essencial diretamente.
+export const HERO_CHECKOUT_URL = pricingPlans[0].checkoutUrl;

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import HeroCarousel from "./HeroCarousel";
 import type { CarouselImage } from "@/lib/wallpapers.server";
+import { HERO_CHECKOUT_URL } from "@/lib/data";
 import { Accent, noContextMenu, PrimaryButton } from "./ui";
 
 // Pequeno detalhe decorativo visto na referência: duas fotos inclinadas
@@ -84,7 +85,9 @@ export default function Hero({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-8"
         >
-          <PrimaryButton href="#pricing">QUERO A COLEÇÃO POR R$ 9,90</PrimaryButton>
+          <PrimaryButton href={HERO_CHECKOUT_URL} target="_blank">
+            QUERO A COLEÇÃO POR R$ 9,90
+          </PrimaryButton>
         </motion.div>
 
         <motion.p

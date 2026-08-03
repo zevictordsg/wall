@@ -41,14 +41,19 @@ export function PrimaryButton({
   href,
   children,
   className = "",
+  target,
 }: {
   href: string;
   children: ReactNode;
   className?: string;
+  /** use "_blank" para links externos (ex.: checkout), sem sair da página */
+  target?: string;
 }) {
   return (
     <Link
       href={href}
+      target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
       className={`inline-flex items-center justify-center rounded-full bg-aura-gradient px-8 py-4 text-sm md:text-base font-semibold tracking-wide text-white shadow-aura transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98] ${className}`}
     >
       {children}
@@ -79,14 +84,19 @@ export function OutlineButton({
   href,
   children,
   className = "",
+  target,
 }: {
   href: string;
   children: ReactNode;
   className?: string;
+  /** use "_blank" para links externos (ex.: checkout), sem sair da página */
+  target?: string;
 }) {
   return (
     <Link
       href={href}
+      target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
       className={`inline-flex items-center justify-center rounded-full border border-aura-500/60 px-8 py-4 text-sm md:text-base font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-aura-500/10 ${className}`}
     >
       {children}
