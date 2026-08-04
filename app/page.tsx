@@ -3,6 +3,7 @@ import Collection from "@/components/Collection";
 import Footer from "@/components/Footer";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
+import HeroCarouselStrip from "@/components/HeroCarouselStrip";
 import NavLogo from "@/components/NavLogo";
 import Pricing from "@/components/Pricing";
 import Quote from "@/components/Quote";
@@ -19,7 +20,8 @@ export default function Home() {
   return (
     <main className="relative">
       <NavLogo />
-      <Hero carouselImages={assets.carousel} cornerImages={assets.floatingImages.slice(0, 2)} />
+      <Hero cornerImages={assets.floatingImages.slice(0, 2)} />
+      <HeroCarouselStrip images={assets.carousel} />
       <Gallery items={assets.galleryPreview} totalCount={assets.galleryTotalCount} />
       <Quote image={assets.quoteImage} />
       <BeforeAfter beforeImage={assets.beforeImage} afterImage={assets.afterImage} />

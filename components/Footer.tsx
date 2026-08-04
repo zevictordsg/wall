@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "./ui";
 
 export default function Footer() {
@@ -6,12 +7,12 @@ export default function Footer() {
       <Reveal className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-xs text-white/40 sm:flex-row">
         <p>© {new Date().getFullYear()} AuraPapers. Todos os direitos reservados.</p>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-white/70">
+          <Link href="/privacidade" className="hover:text-white/70">
             Privacidade
-          </a>
-          <a href="#" className="hover:text-white/70">
+          </Link>
+          <Link href="/termos" className="hover:text-white/70">
             Termos
-          </a>
+          </Link>
         </div>
       </Reveal>
     </footer>
