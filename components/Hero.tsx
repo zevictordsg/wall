@@ -69,8 +69,8 @@ function VideoPlayer() {
       <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl" style={{ aspectRatio: "16 / 9" }}>
         <video
           ref={videoRef}
-          src="/vsl2.webm"
-          poster="/thumb.png"
+          src="/vsl2.mp4"
+          poster="/thumb.jpg"
           className="h-full w-full object-cover"
           playsInline
           preload="metadata"
